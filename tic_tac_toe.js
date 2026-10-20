@@ -2,29 +2,32 @@ modoDeJogo = prompt(`Bem-vindo(a) ao jogo da velha.
     Primeiro, selecione o modo de jogo (digite 1 para jogar contra o bot, 
     digite 2 para jogar contra outro jogador no mesmo dispositivo):`)
 
-if (modoDeJogo == 1){
-    class linhas{
-        espaco1 = ""; espaco2 = ""; espaco3 = ""; espaco4 = ""; espaco5 = ""; espaco6 = ""; espaco7 = ""; espaco8 = ""; espaco9 = "";
-        mostrarJogo(){
-            console.log(`
-                ${this.espaco1} | ${this.espaco2} | ${this.espaco3}
-                ${this.espaco4} | ${this.espaco5} | ${this.espaco6}
-                ${this.espaco7} | ${this.espaco8} | ${this.espaco9}`)
-        }
-        posicionar(espaco, caracter){
-            if (espaco != ""){
-                console.log("essa casa já está ocupada.")
-            }
-            return espaco = caracter
-        }
-    }
-    function boyBot(){
-        // por níveis de dificuldade
-    }
-    
-    
-    jogoEmAndamento = true
+class linhas {
+    espaco1 = "1"; espaco2 = "2"; espaco3 = "3"; espaco4 = "4"; espaco5 = "5"; espaco6 = "6"; espaco7 = "7"; espaco8 = "8"; espaco9 = "9";
 }
+
+function posicionar(espaco, caracter){
+    if (espaco != ""){
+        console.log("essa casa já está ocupada.")
+    }
+    return espaco = caracter
+}
+function mostrarJogo(){
+    console.log(`
+        ${linhas.espaco1} | ${linhas.espaco2} | ${linhas.espaco3}
+        ${linhas.espaco4} | ${linhas.espaco5} | ${linhas.espaco6}
+        ${linhas.espaco7} | ${linhas.espaco8} | ${linhas.espaco9}`)
+}
+
+if (modoDeJogo == 2){
+    jogoEmAndamento = true
+    while (jogoEmAndamento){
+        jogada = prompt(`vez do X, digite o número do espaço para fazer sua jogada: `)
+        posicionar(jogada)
+        mostrarJogo()
+    }
+}
+
 
 // git config --global user.email "joaotjmoreira@gmail.com"
 // git config --global user.name "joaocarlemo"
