@@ -2,43 +2,47 @@ modoDeJogo = prompt(`Bem-vindo(a) ao jogo da velha.
     Primeiro, selecione o modo de jogo (digite 1 para jogar contra o bot, 
     digite 2 para jogar contra outro jogador no mesmo dispositivo):`)
 
-linhas = {
-    espaco1: "1", espaco2: "2", espaco3: "3", espaco4: "4", espaco5: "5", espaco6: "6", espaco7: "7", espaco8: "8", espaco9: "9",
-    posicionar(espaco, caracter){
-        if (espaco == "X" || espaco == "O"){
-            console.log("essa casa já está ocupada.")
-        }
-        else{
-            return espaco = caracter
-        }
-    },
-    mostrarJogo(){
-        console.log(`
-            ${this.espaco1} | ${this.espaco2} | ${this.espaco3}
-            ${this.espaco4} | ${this.espaco5} | ${this.espaco6}
-            ${this.espaco7} | ${this.espaco8} | ${this.espaco9}`)
+espacos = [
+    "1", "2", "3",
+    "4", "5", "6",
+    "7", "8", "9"
+    ]
+function posicionar(espaco, caracter){
+    if (espacos[espaco - 1] == "X" || espacos[espaco - 1] == "O"){
+        console.log("essa casa já está ocupada.")
+    }
+    else{
+        return espacos[espaco - 1] = caracter
     }
 }
-
+function mostrarJogo(){
+    console.log(`
+        ${espacos[0]} | ${espacos[1]} | ${espacos[2]}
+        ${espacos[3]} | ${espacos[4]} | ${espacos[5]}
+        ${espacos[6]} | ${espacos[7]} | ${espacos[8]}`)
+}
+function verificarJogo(){}
+    
 if (modoDeJogo == 2){
     jogoEmAndamento = true
-    linhas.mostrarJogo()
+    mostrarJogo()
     
     while (jogoEmAndamento){
         caracter = "X"
         espaco = parseInt(prompt(`vez do X, digite o número do espaço para fazer sua jogada: `))
-        linhas.posicionar(espaco, caracter)
-        linhas.mostrarJogo()
-        linhas.verificarJogo()
+        posicionar(espaco, caracter)
+        mostrarJogo()
+        verificarJogo()
 
         caracter = "O"
         espaco = parseInt(prompt(`vez do O, digite o número do espaço para fazer sua jogada: `))
-        linhas.posicionar(espaco, caracter)
-        linhas.mostrarJogo()
-        linhas.verificarJogo()
+        posicionar(espaco, caracter)
+        mostrarJogo()
+        verificarJogo()
     }
-}
+} 
 
+// mostrar as casas possíveis na rodada
 
 // git config --global user.email "joaotjmoreira@gmail.com"
 // git config --global user.name "joaocarlemo"
