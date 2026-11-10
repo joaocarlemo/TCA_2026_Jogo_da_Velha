@@ -1,27 +1,32 @@
 function menu(){
-    modoDeJogo = prompt(`Bem-vindo(a) ao jogo da velha.\nPrimeiro, selecione o modo de jogo (digite 1 para jogar contra o bot,\ndigite 2 para jogar contra outro jogador no mesmo dispositivo ou digite "sair" para deixar o jogo):`) 
-
-    if (modoDeJogo == 2){
-    umContraUm()
-    }
-    else{
-        if (modoDeJogo == 1){
-            contraObot()
+    modoDeJogo = 0
+    while ((modoDeJogo != 1) && (modoDeJogo != 2) && (modoDeJogo != "sair")){
+        modoDeJogo = prompt(`Bem-vindo(a) ao jogo da velha.\nPrimeiro, selecione o modo de jogo (digite "1" para jogar contra o bot,\ndigite "2" para jogar contra outro jogador no mesmo dispositivo ou digite "sair" para deixar o jogo):`) 
+    
+        if (modoDeJogo == 2){
+        umContraUm()
         }
-        if (modoDeJogo == "sair"){
-            console.log(`você saiu`)
+        else{
+            if (modoDeJogo == 1){
+                contraObot()
+            }
+            if (modoDeJogo == "sair"){
+                console.log(`você saiu`)
+            }
         }
     }
 }
 
 espacos = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+espacoValido = false
 
-casasRestantes = ``
+casasRestantes = `1, 2, 3, 4, 5, 6, 7, 8, 9`
 function calcularRestantes(){
-    for(i = 0; i < espacos.length; i++){
-        if((espacos[i] != "X") && (espacos[i] != "X")){
-            casasRestantes + ", " + String(espacos[i])
-        }
+    if (espaco == "9"){
+        casasRestantes = casasRestantes.replace(`, ${espaco}`, "")
+    }
+    else{
+        casasRestantes = casasRestantes.replace(`${espaco}, `, "")
     }
     return casasRestantes
 }
@@ -40,7 +45,7 @@ function posicionar(espaco, caracter){
 }
 function mostrarJogo(){
     console.log(`${espacos[0]} | ${espacos[1]} | ${espacos[2]}\n${espacos[3]} | ${espacos[4]} | ${espacos[5]}\n${espacos[6]} | ${espacos[7]} | ${espacos[8]}`)
-    console.log(`casas restantes: ${casasRestantes}`)
+    console.log(`casas disponíveis: ${casasRestantes}`)
 }
 
 function verificarJogo(caracter){
@@ -70,8 +75,10 @@ function verificarJogo(caracter){
     return jogoEmAndamento
 }
 
-class boybot{
-        
+class bot{
+    facil = {}
+    mediano = {}
+    dificil = {}
     }
 
 function umContraUm(){
@@ -86,11 +93,14 @@ function umContraUm(){
         }
         espaco = ""
         while (jogoEmAndamento){
-            while (espaco == ""){
+            while (espacoValido == false){
                 espaco = parseInt(prompt(`vez do ${caracter}, digite o número do espaço para fazer sua jogada: `))
                 if ((espaco != 1) && (espaco != 2) && (espaco != 3) && (espaco != 4) && (espaco != 5) && (espaco != 6) && (espaco != 7) && (espaco != 8) && (espaco != 9)){
                     alert(`digite um espaço válido: `)
                     espaco = ""
+                }
+                else{
+                    espacoValido = true
                 }
             }
             posicionar(espaco, caracter)
@@ -104,16 +114,17 @@ function umContraUm(){
                 caracter = "X"
             }
             espaco = ""
+            espacoValido = false
             if (jogoEmAndamento == false){
                 repetir = prompt(`deseja jogar novamente? (digite 's' para "sim" ou 'n' para "não"): `)
                 if (repetir == 's'){
                     espacos = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-                    casasRestantes = ``
+                    casasRestantes = `1, 2, 3, 4, 5, 6, 7, 8, 9` 
                     umContraUm()
                 }
                 else{
                     espacos = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-                    casasRestantes = ``
+                    casasRestantes = `1, 2, 3, 4, 5, 6, 7, 8, 9`
                     menu()
                 }
                 }
@@ -121,15 +132,10 @@ function umContraUm(){
         }
     }
 
-function contraObot(){
-
-}
-
 menu()
 
 
 // boybot
-// mostrar os espacos possíveis na rodada
 // md3
 // arrumar o empate (ta encerrando antes de todas as casas serem usadas)
 
