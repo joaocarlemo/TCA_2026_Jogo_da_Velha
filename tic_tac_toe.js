@@ -22,12 +22,11 @@ espacoValido = false
 
 casasRestantes = `1, 2, 3, 4, 5, 6, 7, 8, 9`
 function calcularRestantes(){
-    if (espaco == "9"){
-        casasRestantes = casasRestantes.replace(`, ${espaco}`, "")
-    }
-    else{
         casasRestantes = casasRestantes.replace(`${espaco}, `, "")
-    }
+        if(casasRestantes.slice(-3) == `, ${espaco}`){
+            casasRestantes = casasRestantes.slice(0, -3)
+        }
+    
     return casasRestantes
 }
 
@@ -76,10 +75,13 @@ function verificarJogo(caracter){
 }
 
 class bot{
-    facil = {}
-    mediano = {}
-    dificil = {}
-    }
+    constructor(dificuldade){
+           
+    };
+    fazerJogada(){
+        
+    } 
+}
 
 function umContraUm(){
     if (modoDeJogo == 2){
@@ -127,10 +129,10 @@ function umContraUm(){
                     casasRestantes = `1, 2, 3, 4, 5, 6, 7, 8, 9`
                     menu()
                 }
-                }
             }
         }
     }
+}
 
 menu()
 
