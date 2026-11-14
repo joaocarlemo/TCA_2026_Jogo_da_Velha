@@ -76,11 +76,57 @@ function verificarJogo(caracter){
 
 class bot{
     constructor(dificuldade){
-           
+        this.dificuldade = dificuldade
     };
-    fazerJogada(){
-        
+    calcularJogada(){
+ 
+    };
+    executarJogada(){
+
     } 
+}
+
+function contraObot(){
+    let botExecutando = new bot()
+    botExecutando.dificuldade = prompt(`digite a dificuldade do bot (1 = fácil, 2 = mediana, 3 = difícil):`)
+    jogoEmAndamento = true
+    mostrarJogo()
+    espaco = ""
+    caracterInicial = Math.round(Math.random() + 1)
+    if (caracterInicial == 2){
+        caracter = "X"
+    } else {
+        caracter = "O"
+    }
+    quemComeca = Math.round(Math.random() + 1)
+    if (quemComeca == 2){
+        while (jogoEmAndamento){
+        while (espacoValido == false){
+            espaco = parseInt(prompt(`vez do ${caracter}, digite o número do espaço para fazer sua jogada: `))
+            if ((espaco != 1) && (espaco != 2) && (espaco != 3) && (espaco != 4) && (espaco != 5) && (espaco != 6) && (espaco != 7) && (espaco != 8) && (espaco != 9)){
+                alert(`digite um espaço válido: `)
+                espaco = ""
+            }
+            else{
+                espacoValido = true
+            }
+        }
+        posicionar(espaco, caracter)
+        calcularRestantes()
+        mostrarJogo()
+        verificarJogo(caracter)
+        if (caracter == "X"){
+            caracter = "O"
+        }
+        else {
+            caracter = "X"
+        }
+        espaco = ""
+        espacoValido = false
+        botExecutando.calcularJogada()
+        botExecutando.executarJogada()
+        }
+    }   
 }
 
 function umContraUm(){
@@ -139,7 +185,6 @@ menu()
 
 // boybot
 // md3
-// arrumar o empate (ta encerrando antes de todas as casas serem usadas)
 
 // git config --global user.email "joaotjmoreira@gmail.com"
 // git config --global user.name "joaocarlemo"
