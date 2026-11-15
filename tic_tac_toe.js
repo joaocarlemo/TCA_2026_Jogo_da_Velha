@@ -32,17 +32,9 @@ function calcularRestantes(){
 }
 
 function posicionar(espaco, caracter){
-    if (espacos[espaco - 1] == "X" || espacos[espaco - 1] == "O"){
-        console.log("essa casa já está ocupada.")
-        espaco = parseInt(prompt(`vez do ${caracter}, digite o número do espaço para fazer sua jogada: `))
-        posicionar(espaco, caracter)
-        mostrarJogo()
-        verificarJogo()
-    }
-    else{
         return espacos[espaco - 1] = caracter
     }
-}
+
 function mostrarJogo(){
     console.log(`     -----     `)
     console.log(`${espacos[0]} | ${espacos[1]} | ${espacos[2]}\n${espacos[3]} | ${espacos[4]} | ${espacos[5]}\n${espacos[6]} | ${espacos[7]} | ${espacos[8]}`)
@@ -84,22 +76,14 @@ class bot{
         this.dificuldade = dificuldade
     };
     calcularJogada(){
-        if(this.dificuldade == 1){
-            disponiveis = casasRestantes.replaceAll(", ", "")
-            quantidade = 0
-            for (i = 0; i < disponiveis.length; i++){
-                quantidade++
-            }
-            espaco = disponiveis[Math.floor( Math.random() * quantidade )]
-            posicionar(espaco, caracter)
-            return espaco
+        disponiveis = casasRestantes.replaceAll(", ", "")
+        quantidade = 0
+        for (i = 0; i < disponiveis.length; i++){
+            quantidade++
         }
-        if(this.dificuldade == 2){
-            console.log(`aa`)
-        }
-        if(this.dificuldade == 3){
-            console.log(`aaa`)
-        }
+        espaco = disponiveis[Math.floor( Math.random() * quantidade )]
+        posicionar(espaco, caracter)
+        return espaco
     };
     mostrarJogoBot(){
         console.log(`     -----     `)
@@ -124,16 +108,19 @@ function contraObot(){
     quemComeca = Math.round(Math.random() + 1)
     if (quemComeca == 2){
         while (jogoEmAndamento){
-        while (espacoValido == false){
-            espaco = parseInt(prompt(`vez do ${caracter}, digite o número do espaço para fazer sua jogada: `))
-            if ((espaco != 1) && (espaco != 2) && (espaco != 3) && (espaco != 4) && (espaco != 5) && (espaco != 6) && (espaco != 7) && (espaco != 8) && (espaco != 9)){
-                alert(`digite um espaço válido: `)
-                espaco = ""
+            while (espacoValido == false){
+                espaco = parseInt(prompt(`vez do ${caracter}, digite o número do espaço para fazer sua jogada: `))
+                if ((espaco != 1) && (espaco != 2) && (espaco != 3) && (espaco != 4) && (espaco != 5) && (espaco != 6) && (espaco != 7) && (espaco != 8) && (espaco != 9)){
+                    alert(`digite um espaço válido: `)
+                    espaco = ""
+                }
+                else if (espacos[espaco - 1] == "X" || espacos[espaco - 1] == "O"){
+                    console.log("essa casa já está ocupada.")
+                }
+                else {
+                    espacoValido = true
+                }
             }
-            else{
-                espacoValido = true
-            }
-        }
         posicionar(espaco, caracter)
         calcularRestantes()
         mostrarJogo()
@@ -176,6 +163,64 @@ function contraObot(){
                 }
             } 
         }
+    }
+    else{
+        while (jogoEmAndamento){
+            botExecutando.calcularJogada()
+            calcularRestantes()
+            botExecutando.mostrarJogoBot()
+            verificarJogo(caracter)
+            if (caracter == "X"){
+                caracter = "O"
+            }
+            else {
+                caracter = "X"
+            }
+            if (jogoEmAndamento){
+                while (espacoValido == false){
+                    espaco = parseInt(prompt(`vez do ${caracter}, digite o número do espaço para fazer sua jogada: `))
+                    if ((espaco != 1) && (espaco != 2) && (espaco != 3) && (espaco != 4) && (espaco != 5) && (espaco != 6) && (espaco != 7) && (espaco != 8) && (espaco != 9)){
+                        alert(`digite um espaço válido: `)
+                        espaco = ""
+                    }
+                    else if (espacos[espaco - 1] == "X" || espacos[espaco - 1] == "O"){
+                        console.log("essa casa já está ocupada.")
+                    }
+                    else {
+                        espacoValido = true
+                    }
+                }
+                posicionar(espaco, caracter)
+                calcularRestantes()
+                mostrarJogo()
+                verificarJogo(caracter)
+                if (caracter == "X"){
+                    caracter = "O"
+                }
+                else {
+                    caracter = "X"
+                }
+                espaco = ""
+                espacoValido = false
+            }
+            if (jogoEmAndamento == false){
+                repetir = prompt(`deseja jogar novamente? (digite 's' para "sim" ou 'n' para "não"): `)
+                if (repetir == 's'){
+                    espacos = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                    casasRestantes = `1, 2, 3, 4, 5, 6, 7, 8, 9` 
+                    espaco = ""
+                    contraObot()
+                }
+                else{
+                    espacos = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                    casasRestantes = `1, 2, 3, 4, 5, 6, 7, 8, 9`
+                    espaco = ""
+                    espacoValido = false
+                    menu()
+                    return
+                }
+            } 
+        }
     }   
 }
 
@@ -197,7 +242,10 @@ function umContraUm(){
                     alert(`digite um espaço válido: `)
                     espaco = ""
                 }
-                else{
+                else if (espacos[espaco - 1] == "X" || espacos[espaco - 1] == "O"){
+                    console.log("essa casa já está ocupada.")
+                }
+                else {
                     espacoValido = true
                 }
             }
@@ -224,6 +272,7 @@ function umContraUm(){
                     espacos = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
                     casasRestantes = `1, 2, 3, 4, 5, 6, 7, 8, 9`
                     menu()
+                    return
                 }
             }
         }
@@ -232,7 +281,7 @@ function umContraUm(){
 
 menu()
 
-
+// quando termina em empate o a última casa continua aparecendo como disponível
 
 // git config --global user.email "joaotjmoreira@gmail.com"
 // git config --global user.name "joaocarlemo"
