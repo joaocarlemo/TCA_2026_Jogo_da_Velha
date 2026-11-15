@@ -21,6 +21,7 @@ espacos = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 espacoValido = false
 
 casasRestantes = `1, 2, 3, 4, 5, 6, 7, 8, 9`
+
 function calcularRestantes(){
         casasRestantes = casasRestantes.replace(`${espaco}, `, "")
         if(casasRestantes.slice(-3) == `, ${espaco}`){
@@ -43,6 +44,7 @@ function posicionar(espaco, caracter){
     }
 }
 function mostrarJogo(){
+    console.log(`     -----     `)
     console.log(`${espacos[0]} | ${espacos[1]} | ${espacos[2]}\n${espacos[3]} | ${espacos[4]} | ${espacos[5]}\n${espacos[6]} | ${espacos[7]} | ${espacos[8]}`)
     console.log(`casas disponíveis: ${casasRestantes}`)
 }
@@ -74,16 +76,37 @@ function verificarJogo(caracter){
     return jogoEmAndamento
 }
 
+disponiveis = 0
+quantidade = 0
+
 class bot{
     constructor(dificuldade){
         this.dificuldade = dificuldade
     };
     calcularJogada(){
- 
+        if(this.dificuldade == 1){
+            disponiveis = casasRestantes.replaceAll(", ", "")
+            quantidade = 0
+            for (i = 0; i < disponiveis.length; i++){
+                quantidade++
+            }
+            espaco = disponiveis[Math.floor( Math.random() * quantidade )]
+            posicionar(espaco, caracter)
+            return espaco
+        }
+        if(this.dificuldade == 2){
+            console.log(`aa`)
+        }
+        if(this.dificuldade == 3){
+            console.log(`aaa`)
+        }
     };
-    executarJogada(){
-
-    } 
+    mostrarJogoBot(){
+        console.log(`     -----     `)
+        console.log(`o bot executou a jogada em ${espaco}:`)
+        console.log(`${espacos[0]} | ${espacos[1]} | ${espacos[2]}\n${espacos[3]} | ${espacos[4]} | ${espacos[5]}\n${espacos[6]} | ${espacos[7]} | ${espacos[8]}`)
+    console.log(`casas disponíveis: ${casasRestantes}`)
+    }
 }
 
 function contraObot(){
@@ -122,9 +145,36 @@ function contraObot(){
             caracter = "X"
         }
         espaco = ""
-        espacoValido = false
-        botExecutando.calcularJogada()
-        botExecutando.executarJogada()
+        if (jogoEmAndamento){
+            botExecutando.calcularJogada()
+            calcularRestantes()
+            botExecutando.mostrarJogoBot()
+            verificarJogo(caracter)
+            if (caracter == "X"){
+                caracter = "O"
+            }
+            else {
+                caracter = "X"
+            }
+            espaco = ""
+            espacoValido = false
+        }
+        if (jogoEmAndamento == false){
+                repetir = prompt(`deseja jogar novamente? (digite 's' para "sim" ou 'n' para "não"): `)
+                if (repetir == 's'){
+                    espacos = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                    casasRestantes = `1, 2, 3, 4, 5, 6, 7, 8, 9` 
+                    espaco = ""
+                    contraObot()
+                }
+                else{
+                    espacos = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                    casasRestantes = `1, 2, 3, 4, 5, 6, 7, 8, 9`
+                    espaco = ""
+                    espacoValido = false
+                    menu()
+                }
+            } 
         }
     }   
 }
@@ -183,8 +233,6 @@ function umContraUm(){
 menu()
 
 
-// boybot
-// md3
 
 // git config --global user.email "joaotjmoreira@gmail.com"
 // git config --global user.name "joaocarlemo"
