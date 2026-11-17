@@ -72,9 +72,6 @@ disponiveis = 0
 quantidade = 0
 
 class bot{
-    constructor(dificuldade){
-        this.dificuldade = dificuldade
-    };
     calcularJogada(){
         disponiveis = casasRestantes.replaceAll(", ", "")
         quantidade = 0
@@ -95,7 +92,6 @@ class bot{
 
 function contraObot(){
     let botExecutando = new bot()
-    botExecutando.dificuldade = prompt(`digite a dificuldade do bot (1 = fácil, 2 = mediana, 3 = difícil):`)
     jogoEmAndamento = true
     mostrarJogo()
     espaco = ""
@@ -280,8 +276,6 @@ function umContraUm(){
 }
 
 menu()
-
-// quando termina em empate o a última casa continua aparecendo como disponível
 
 // git config --global user.email "joaotjmoreira@gmail.com"
 // git config --global user.name "joaocarlemo"
