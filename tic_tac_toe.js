@@ -55,7 +55,7 @@ function verificarJogo(caracter){
         } 
     else {
         empate = 0
-        for(i = 0; i < espacos.length; i++){
+        for(let i = 0; i < espacos.length; i++){
             if (espacos[i] == "X" || espacos[i] == "O"){
                 empate++
             }
@@ -75,7 +75,7 @@ class bot{
     calcularJogada(){
         disponiveis = casasRestantes.replaceAll(", ", "")
         quantidade = 0
-        for (i = 0; i < disponiveis.length; i++){
+        for (let i = 0; i < disponiveis.length; i++){
             quantidade++
         }
         espaco = disponiveis[Math.floor( Math.random() * quantidade )]
